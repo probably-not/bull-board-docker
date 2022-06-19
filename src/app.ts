@@ -36,8 +36,12 @@ const { addQueue, removeQueue, setQueues, replaceQueues } = createBullBoard({
   serverAdapter: serverAdapter,
 });
 
-serverAdapter.setBasePath('/');
-app.use('/', serverAdapter.getRouter());
+serverAdapter.setBasePath('/admin/queues');
+app.use('/admin/queues', serverAdapter.getRouter());
+
+app.get('/', (req, res) => {
+  res.redirect('/admin/queues');
+});
 
 app.listen(port, () => {
   return console.log(`Bull Board is listening at http://localhost:${port}`);
