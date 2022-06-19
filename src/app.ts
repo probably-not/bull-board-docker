@@ -43,6 +43,10 @@ app.get('/', (req, res) => {
   res.redirect('/admin/queues');
 });
 
+app.get('/health', (req, res) => {
+  res.send('ok');
+});
+
 app.listen(port, () => {
   return console.log(`Bull Board is listening at http://localhost:${port}`);
 });
