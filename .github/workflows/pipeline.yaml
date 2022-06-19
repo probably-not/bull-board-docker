@@ -54,7 +54,7 @@ jobs:
         with:
           username: ${{ secrets.DOCKER_HUB_USERNAME }}
           password: ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}
-      - name: Reset Stuff
+      - name: Reset Multiarch Container
         run: docker run --rm --privileged multiarch/qemu-user-static --reset -p yes
       - name: Build Image
         if: github.ref == 'refs/heads/main'
