@@ -1,0 +1,13 @@
+{
+  "redisConfig": {
+    "cluster": false,
+    "host": "localhost",
+    "port": 6379
+  },
+  "queues": [
+    {
+      "prefix": "string",
+      "name": "string"
+    }
+  ]
+}
