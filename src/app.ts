@@ -6,6 +6,7 @@ import { Queue } from 'bullmq';
 import { createBullBoard } from '@bull-board/api';
 import { BullMQAdapter } from '@bull-board/api/bullMQAdapter';
 import { ExpressAdapter } from '@bull-board/express';
+import { Server } from 'http';
 
 const app = express();
 const port = process.env.PORT || 3000;
@@ -47,6 +48,23 @@ app.get('/health', (req, res) => {
   res.send('ok');
 });
 
-app.listen(port, () => {
+const server = app.listen(port, () => {
   return console.log(`Bull Board is listening at http://localhost:${port}`);
 });
+
+const gracefulShutdown = (server: Server) => (signal: string) => {
+  console.log('starting shutdown, got signal ' + signal);
+  if (!server.listening) process.exit(0);
+
+  server.close((err) => {
+    if (err) {
+      console.log('error closing server: ' + err);
+      return process.exit(1);
+    }
+    process.exit(0);
+  });
+};
+
+const shutdownHandler = gracefulShutdown(server);
+process.on('SIGINT', shutdownHandler);
+process.on('SIGTERM', shutdownHandler);
