@@ -40,8 +40,9 @@ const { addQueue, removeQueue, setQueues, replaceQueues } = createBullBoard({
 serverAdapter.setBasePath('/admin/queues');
 app.use('/admin/queues', serverAdapter.getRouter());
 
+const proxyPath = config.proxyPath || '';
 app.get('/', (req, res) => {
-  res.redirect('/admin/queues');
+  res.redirect(`${proxyPath}/admin/queues`);
 });
 
 app.get('/health', (req, res) => {

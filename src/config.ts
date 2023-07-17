@@ -13,4 +13,5 @@ export interface QueueConfig {
 export interface Config {
   redisConfig: RedisConfig;
   queues: QueueConfig[];
+  proxyPath?: string;
 }
